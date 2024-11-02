@@ -14,7 +14,8 @@ const findWordMeaning = async (word) => {
 }
 
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', (e) => {
+    e.preventDefault();
     wrapperUL.innerHTML = '';
     const searchWord = searchInput.value.toLowerCase();
     
@@ -78,6 +79,10 @@ btn.addEventListener('click', () => {
         synonymsList.appendChild(synonymsDetails)
         contentList.appendChild(synonymsList)
         
+    }).catch((error) => {
+        const errorText = document.createElement("li")
+        errorText.textContent = "Word not found. Please try again!"
+        wrapperUL.appendChild(errorText);
     })
     
     
