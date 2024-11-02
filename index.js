@@ -6,62 +6,36 @@ const btn = document.querySelector('.btn')
 const wrapperUL = document.querySelector(".wrapper ul");
 
 
-
-const dictionary = [
-    {
-        word: 'happy',
-        meaning: 'feeling or showing pleasure or contentment',
-        example: 'I am happy to see you.',
-        synonyms: ['excited', 'joy'],
-        phonetics: "/ˈhæpiː/",
-        partOfSpeech: "noun"
-
-    },
-
-    {
-        word: 'sad',
-        meaning: 'feeling or showing sorrow or unhappiness',
-        example: 'I am sad to see you go.',
-        synonyms: ['unhappy', 'gloomy'],
-        phonetics: "/sæd/",
-        partOfSpeech: "adjective"
-
-    },
-
-    {
-        word: 'angry',
-        meaning: 'feeling or showing strong displeasure',
-        example: 'I am angry with you.',
-        synonyms: ['furious', 'enraged'],
-        phonetics: "/ˈæŋ.ɡɹi/",
-        partOfSpeech: "adjective"
-    }
-
-
-
-];
+const findWordMeaning = async (word) => {
+    const request = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    const response = await request.json();
+    const extractedResponse = response[0].meanings[0]
+    return extractedResponse
+}
 
 
 btn.addEventListener('click', () => {
     wrapperUL.innerHTML = '';
     const searchWord = searchInput.value.toLowerCase();
-    dictionary.forEach(obj => {
-        if (searchWord === obj.word) {
-            
-        const contentList = document.createElement("ul")    
+    
+    infoText.textContent = searchWord;
+
+    findWordMeaning(searchWord).then((data) =>{
+        // console.log(data)
+        const contentList = document.createElement("ul")
         const meaningList = document.createElement("li");
         const meaningDetails = document.createElement("div");
         const meaningParagraph = document.createElement("p");
         const meaningSpan = document.createElement("span");
-        
+
         contentList.classList.add("content");
         meaningList.classList.add("meaning");
         meaningDetails.classList.add("details");
 
         meaningParagraph.textContent = "Meaning";
-        meaningSpan.textContent = obj.meaning;
+        meaningSpan.textContent = data.definitions[0].definition;
 
-        
+
         meaningDetails.appendChild(meaningParagraph);
         meaningDetails.appendChild(meaningSpan);
 
@@ -77,14 +51,14 @@ btn.addEventListener('click', () => {
         exampleList.classList.add("example");
         exampleDetails.classList.add("details");
         detailsParagraph.textContent = "Example";
-        detailSpan.textContent = obj.example;
+        detailSpan.textContent = data.definitions[0].example;
 
         exampleDetails.appendChild(detailsParagraph);
         exampleDetails.appendChild(detailSpan);
 
         exampleList.appendChild(exampleDetails);
         contentList.appendChild(exampleList);
-        
+
         const synonymsList = document.createElement("li");
         const synonymsDetails = document.createElement("div");
         const synonymsParagraph = document.createElement("p");
@@ -95,7 +69,7 @@ btn.addEventListener('click', () => {
         synonymsDetails.classList.add("details");
         synonymsParagraph.textContent = "Synonyms";
         list.classList.add("list");
-        listSpan.textContent = obj.synonyms;
+        listSpan.textContent = data.synonyms;
 
 
         list.appendChild(listSpan);
@@ -103,28 +77,17 @@ btn.addEventListener('click', () => {
         synonymsDetails.appendChild(list)
         synonymsList.appendChild(synonymsDetails)
         contentList.appendChild(synonymsList)
-        }
+        
     })
-
-
+    
+    
+    
+    
 })
 
 
-const findWordMeaning = async (word) =>{
-    const request = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-    const response = await request.json();
-    console.log(response)
-}
 
 
 
-// async function findWordMeaning(word){
-//     const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-//     const data = await response.json();
 
-//     if(response.status === 200){
-//         console.log(data)
-//     }else{
-//         console.error()
-//     }
-// }
+
