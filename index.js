@@ -33,6 +33,7 @@ btn.addEventListener('click', (e) => {
         meaningList.classList.add("meaning");
         meaningDetails.classList.add("details");
 
+        //Handle Meaning
         meaningParagraph.textContent = "Meaning";
         meaningSpan.textContent = data.definitions[0].definition;
 
@@ -49,6 +50,7 @@ btn.addEventListener('click', (e) => {
         const detailsParagraph = document.createElement("p");
         const detailSpan = document.createElement("span");
 
+        //Handle Example
         exampleList.classList.add("example");
         exampleDetails.classList.add("details");
         detailsParagraph.textContent = "Example";
@@ -66,6 +68,7 @@ btn.addEventListener('click', (e) => {
         const list = document.createElement("div");
         const listSpan = document.createElement("span");
 
+        //Handle Synonyms
         synonymsList.classList.add("synonyms");
         synonymsDetails.classList.add("details");
         synonymsParagraph.textContent = "Synonyms";
@@ -85,9 +88,7 @@ btn.addEventListener('click', (e) => {
         wrapperUL.appendChild(errorText);
     })
     
-    
-    
-    
+
 })
 
 
