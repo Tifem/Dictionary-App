@@ -2,7 +2,7 @@ const container = document.querySelector(".container");
 const searchInput = document.querySelector("input");
 const infoText = document.querySelector(".info-text");
 const wrapper = document.querySelector(".wrapper");
-const btn = document.querySelector('.btn')
+const btn = document.querySelector('.btn');
 const wrapperUL = document.querySelector(".wrapper ul");
 
 
@@ -10,7 +10,7 @@ const findWordMeaning = async (word) => {
     const request = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
     const response = await request.json();
     const extractedResponse = response[0].meanings[0]
-    return extractedResponse
+    return extractedResponse;
 }
 
 
